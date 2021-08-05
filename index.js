@@ -1,8 +1,7 @@
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
-const markdown = require('./src/renderHTML');
-// const Engineer = require('Engineer');
-// const Intern = require('Intern');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
 
 
 const managerQuestion = [{
@@ -45,6 +44,7 @@ function askForInternOrEngineer() {
     ]).then((response) => {
         switch (response.answer) {
             case "No":
+                console.log(employees)
                 //TODO: stop the program and 
                 // renderHTML()
                 break;
@@ -68,6 +68,7 @@ function init() {
             console.log(err)
         })
 }
+
 init()
 
 function askForEmployee(type = 'Manager') {
@@ -98,14 +99,14 @@ function askForEmployee(type = 'Manager') {
                 message: "Please provide the Managers office number",
             });
             break;
-        case 'Engineer':
+        case 'engineer':
             baseQuestion.push({
                 type: "input",
                 name: "gitHub",
                 message: "Please provide the Engineers GitHub account",
             });
             break;
-        case 'Intern':
+        case 'intern':
             baseQuestion.push({
                 type: "input",
                 name: "school",
