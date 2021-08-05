@@ -1,0 +1,30 @@
+{
+  "name": "Team_Profile_Generator_RG",
+  "version": "1.0.0",
+  "description": "Team Profile Generator",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rach-Gee/Team_Profile_Generator_RG.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rach-Gee/Team_Profile_Generator_RG/issues"
+  },
+  "homepage": "https://github.com/Rach-Gee/Team_Profile_Generator_RG#readme",
+  "dependencies": {
+    "inquirer": "^8.1.2"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6"
+  }
+}
