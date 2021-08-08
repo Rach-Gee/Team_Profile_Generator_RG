@@ -32,8 +32,10 @@ MIT_License
        
 ## Features
        
-The team webpage will auto generate a nicely styled webpage, a link to the engineers git hub and a link to the email addresses for ease of contact.
-        
+The team webpage will auto generate a nicely styled webpage, a link to the engineers git hub and a link to the email addresses for ease of contact. It also has validation on the Employee number and Office number to ensure only a number is entered as well as the email address must have @ included. 
+
+https://user-images.githubusercontent.com/83891242/128620167-86eaf679-0b7a-4613-96fa-05acb9761462.mp4
+       
 ## How to Contribute
         
 I would love to see additions to my team generator that you feel would save you sometime when created your own teams webpage. Add a GitHub issue, I will add you as a collaborator if I decide to push your idea.
