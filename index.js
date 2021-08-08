@@ -29,7 +29,6 @@ function askForInternOrEngineer() {
                 askForEmployee(response.answer)
                     .then((answers) => {
                         employees.push(new Engineer(...Object.values(answers)));
-                        console.log(employees)
                     })
                     .then(() => askForInternOrEngineer());
                 break;
@@ -37,7 +36,6 @@ function askForInternOrEngineer() {
                 askForEmployee(response.answer)
                     .then((answers) => {
                         employees.push(new Intern(...Object.values(answers)));
-                        console.log(employees)
                     })
                     .then(() => askForInternOrEngineer());
                 break;
@@ -137,8 +135,6 @@ function renderPage(employees) {
     try {
         for (let index = 0; index < employees.length; index++) {
             const employee = employees[index];
-            console.log(employee)
-            console.log(employee.constructor.name)
 
             if (employee.constructor.name === "Manager") {
                 fs.appendFileSync('index.html', markdown.generateManager(employee))
