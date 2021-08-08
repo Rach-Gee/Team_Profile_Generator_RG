@@ -1,9 +1,12 @@
 .team-heading {
     background-color: #E84855;
     color: #ffffff;
+    text-align: center;
+    padding: 10px;
 }
 
 .team-area {
+    display: flex;
     max-width: 1000px;
     margin: 3em auto;
     flex-wrap: wrap;
@@ -13,7 +16,7 @@
     margin: 1em;
     max-width: 280px;
     width: 90%;
-    min-height: 22rem;
+    min-height: 2rem;
     background-color: #007bff;
     color: white;
     display: flex;
@@ -33,4 +36,9 @@
 .list-group-item {
     color: #000000;
     text-decoration: none;
+}
+
+h3 {
+    text-align: center;
+    font-size: xx-large;
 }

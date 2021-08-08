@@ -2,29 +2,8 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-
-
-const managerQuestion = [{
-    type: "number",
-    name: "id",
-    message: "Please provide the Managers Employee ID",
-},
-{
-    type: "input",
-    name: "name",
-    message: "Please provide the Managers name",
-},
-{
-    type: "input",
-    name: "email",
-    message: "Please provide the Managers email address",
-},
-{
-    type: "number",
-    name: "officeNumber",
-    message: "Please provide the Managers office number",
-}
-];
+const fs = require('fs');
+const markdown = require('./src/markdown');
 
 const employees = [];
 
@@ -44,12 +23,22 @@ function askForInternOrEngineer() {
     ]).then((response) => {
         switch (response.answer) {
             case "No":
-                console.log(employees)
-                //TODO: stop the program and 
-                // renderHTML()
+                renderPage(employees)
                 break;
-            default:
+            case "Engineer":
                 askForEmployee(response.answer)
+                    .then((answers) => {
+                        employees.push(new Engineer(...Object.values(answers)));
+                        console.log(employees)
+                    })
+                    .then(() => askForInternOrEngineer());
+                break;
+            case "Intern":
+                askForEmployee(response.answer)
+                    .then((answers) => {
+                        employees.push(new Intern(...Object.values(answers)));
+                        console.log(employees)
+                    })
                     .then(() => askForInternOrEngineer());
                 break;
         }
@@ -78,6 +67,12 @@ function askForEmployee(type = 'Manager') {
             type: "number",
             name: "id",
             message: `Please provide the ${type}'s Employee ID`,
+            validate: (answer) => {
+                if (isNaN(answer)) {
+                    return "Please select a number";
+                }
+                return true;
+            }
         },
         {
             type: "input",
@@ -88,6 +83,12 @@ function askForEmployee(type = 'Manager') {
             type: "input",
             name: "email",
             message: `Please provide the ${type}'s email address`,
+            validate: (answer) => {
+                if (!answer.includes("@") ) {
+                    return "Please ensure you have entered a valid email";
+                }
+                return true;
+            }
         },
     ];
 
@@ -97,6 +98,12 @@ function askForEmployee(type = 'Manager') {
                 type: "number",
                 name: "officeNumber",
                 message: "Please provide the Managers office number",
+                validate: (answer) => {
+                    if (isNaN(answer)) {
+                        return "Please select a number";
+                    }
+                    return true;
+                }
             });
             break;
         case 'engineer':
@@ -119,5 +126,43 @@ function askForEmployee(type = 'Manager') {
     }
     return inquirer.prompt(baseQuestion)
 }
+
+
+function renderPage(employees) {
+    try {
+        fs.writeFileSync('index.html', markdown.generatePage())
+    } catch (err) { console.error(err) }
+
+
+    try {
+        for (let index = 0; index < employees.length; index++) {
+            const employee = employees[index];
+            console.log(employee)
+            console.log(employee.constructor.name)
+
+            if (employee.constructor.name === "Manager") {
+                fs.appendFileSync('index.html', markdown.generateManager(employee))
+            }
+
+            if (employee.constructor.name === "Engineer") {
+                fs.appendFileSync('index.html', markdown.generateEngineer(employee))
+            }
+
+            if (employee.constructor.name === "Intern") {
+                fs.appendFileSync('index.html', markdown.generateIntern(employee))
+            }
+        }
+    } catch (err) { console.error(err) }
+
+    try {
+        fs.appendFileSync('index.html', markdown.generateEnd())
+    } catch (err) { console.error(err) }
+
+}
+
+
+
+
+
 
 
