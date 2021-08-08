@@ -1,10 +1,10 @@
 const Employee = require("./../../lib/Employee");
 
 function makeEmployee(
-    id = 123, 
-    name = 'Employee', 
+    id = 123,
+    name = 'Employee',
     email = 'employee@mail.com'
-    ) {
+) {
     return new Employee(id, name, email);
 }
 
@@ -29,7 +29,7 @@ describe("Employee", () => {
     })
 
     it('should return email when getID() is called', () => {
-        const expected = 123     
+        const expected = 123
         const employee = makeEmployee(expected);
 
         expect(employee.getID()).toEqual(expected);
@@ -42,7 +42,7 @@ describe("Employee", () => {
     })
 
     it('should return email when getEmail() is called', () => {
-        const expected = 'Employee@mail.com'      
+        const expected = 'Employee@mail.com'
         const employee = makeEmployee(123, "Employee", expected);
 
         expect(employee.getEmail()).toEqual(expected);

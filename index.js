@@ -1,51 +1,18 @@
+//Require inquirer.
 const inquirer = require('inquirer');
+//Require inquirer.
+const fs = require('fs');
+//Require each role and markdown file
+const markdown = require('./src/markdown');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
-const fs = require('fs');
-const markdown = require('./src/markdown');
 
+//Create emply array to append responses to 
 const employees = [];
 
-function askForInternOrEngineer() {
-
-    return inquirer.prompt([
-        {
-            type: "list",
-            choices: [
-                "Intern",
-                "Engineer",
-                "No"
-            ],
-            name: 'answer',
-            message: "Do you want to add another employee?",
-        }
-    ]).then((response) => {
-        switch (response.answer) {
-            case "No":
-                renderPage(employees)
-                break;
-            case "Engineer":
-                askForEmployee(response.answer)
-                    .then((answers) => {
-                        employees.push(new Engineer(...Object.values(answers)));
-                    })
-                    .then(() => askForInternOrEngineer());
-                break;
-            case "Intern":
-                askForEmployee(response.answer)
-                    .then((answers) => {
-                        employees.push(new Intern(...Object.values(answers)));
-                    })
-                    .then(() => askForInternOrEngineer());
-                break;
-        }
-    })
-}
-
-
+//Initialise the app
 function init() {
-
     return askForEmployee('manager')
         .then((answers) => {
             employees.push(new Manager(...Object.values(answers)));
@@ -58,8 +25,8 @@ function init() {
 
 init()
 
+//Function holding questions for Inquiere to ask. 
 function askForEmployee(type = 'Manager') {
-
     const baseQuestion = [
         {
             type: "number",
@@ -82,7 +49,7 @@ function askForEmployee(type = 'Manager') {
             name: "email",
             message: `Please provide the ${type}'s email address`,
             validate: (answer) => {
-                if (!answer.includes("@") ) {
+                if (!answer.includes("@")) {
                     return "Please ensure you have entered a valid email";
                 }
                 return true;
@@ -126,6 +93,44 @@ function askForEmployee(type = 'Manager') {
 }
 
 
+
+//function to ask if the end user needs to add more employees
+function askForInternOrEngineer() {
+    return inquirer.prompt([
+        {
+            type: "list",
+            choices: [
+                "Intern",
+                "Engineer",
+                "No"
+            ],
+            name: 'answer',
+            message: "Do you want to add another employee?",
+        }
+    ]).then((response) => {
+        switch (response.answer) {
+            case "No":
+                renderPage(employees)
+                break;
+            case "Engineer":
+                askForEmployee(response.answer)
+                    .then((answers) => {
+                        employees.push(new Engineer(...Object.values(answers)));
+                    })
+                    .then(() => askForInternOrEngineer());
+                break;
+            case "Intern":
+                askForEmployee(response.answer)
+                    .then((answers) => {
+                        employees.push(new Intern(...Object.values(answers)));
+                    })
+                    .then(() => askForInternOrEngineer());
+                break;
+        }
+    })
+}
+
+//using the markdown file to render the HTML
 function renderPage(employees) {
     try {
         fs.writeFileSync('index.html', markdown.generatePage())
@@ -155,10 +160,3 @@ function renderPage(employees) {
     } catch (err) { console.error(err) }
 
 }
-
-
-
-
-
-
-

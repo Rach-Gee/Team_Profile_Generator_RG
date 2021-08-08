@@ -1,11 +1,11 @@
 const Intern = require("./../../lib/Intern");
 
 function makeIntern(
-    id = 123, 
-    name = 'Intern', 
+    id = 123,
+    name = 'Intern',
     email = 'Intern@mail.com',
     school = 'UWA'
-    ) {
+) {
     return new Intern(id, name, email, school);
 }
 
@@ -34,7 +34,7 @@ describe("Intern", () => {
     })
 
     it('should return email when getID() is called', () => {
-        const expected = 123     
+        const expected = 123
         const intern = makeIntern(expected);
 
         expect(intern.getID()).toEqual(expected);
@@ -47,14 +47,14 @@ describe("Intern", () => {
     })
 
     it('should return email when getEmail() is called', () => {
-        const expected = 'Intern@mail.com'      
+        const expected = 'Intern@mail.com'
         const intern = makeIntern(123, "Intern", expected);
 
         expect(intern.getEmail()).toEqual(expected);
     })
 
     it('should return email when getSchool() is called', () => {
-        const expected = 'UWA'      
+        const expected = 'UWA'
         const intern = makeIntern(123, "Intern", 'email', expected);
 
         expect(intern.getSchool()).toEqual(expected);

@@ -1,11 +1,11 @@
 const Manager = require("./../../lib/manager");
 
 function makemanager(
-    id = 123, 
-    name = 'Manager', 
+    id = 123,
+    name = 'Manager',
     email = 'manager@mail.com',
     officeNumber = 'UWA'
-    ) {
+) {
     return new Manager(id, name, email, officeNumber);
 }
 
@@ -34,7 +34,7 @@ describe("Manager", () => {
     })
 
     it('should return email when getID() is called', () => {
-        const expected = 123     
+        const expected = 123
         const manager = makemanager(expected);
 
         expect(manager.getID()).toEqual(expected);
@@ -47,14 +47,14 @@ describe("Manager", () => {
     })
 
     it('should return email when getEmail() is called', () => {
-        const expected = 'manager@mail.com'      
+        const expected = 'manager@mail.com'
         const manager = makemanager(123, "manager", expected);
 
         expect(manager.getEmail()).toEqual(expected);
     })
 
     it('should return email when getOfficeNumber() is called', () => {
-        const expected = 'UWA'      
+        const expected = 'UWA'
         const manager = makemanager(123, "manager", 'email', expected);
 
         expect(manager.getOfficeNumber()).toEqual(expected);
